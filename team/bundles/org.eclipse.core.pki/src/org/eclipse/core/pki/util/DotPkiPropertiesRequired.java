@@ -36,8 +36,9 @@ public enum DotPkiPropertiesRequired {
 			    } else {
 			    	Optional pkiType = Optional.ofNullable(properties.get("javax.net.ssl.keyStoreType"));
 			    	if ( !(pkiType.isEmpty())) {
-			    		if (pkiType.get().toString().contains("12")) { //PKCS12 type. no cfg needed
-			    			isProperty("javax.net.ssl.cfgFileLocation");	
+			    		if (pkiType.get().toString().contains("12")) { //PKCS12 type. no cfg needed, no provider needed
+			    			isProperty("javax.net.ssl.cfgFileLocation");
+			    			isProperty("javax.net.ssl.keyStoreProvider");
 			    		}
 			    	}
 			    	if (!(list.isEmpty())) {
