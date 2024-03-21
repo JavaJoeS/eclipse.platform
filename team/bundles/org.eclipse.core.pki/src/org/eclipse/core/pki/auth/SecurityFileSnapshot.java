@@ -108,8 +108,17 @@ public enum SecurityFileSnapshot {
 			Optional<String> encryptedPasswd = Optional
 					.ofNullable(properties.getProperty("javax.net.ssl.encryptedPassword")); //$NON-NLS-1$
 			if (passwdContainer.isEmpty()) {
-				// get the passwd from console
-				PokeInConsole.PASSWD.get();
+				Optional keyStoreTypeContainer = Optional.ofNullable(
+						properties.getProperty("javax.net.ssl.keyStoreType")); //$NON-NLS-1$
+				if (!(keyStoreTypeContainer.isEmpty() )) {
+					String keyStoreType = keyStoreTypeContainer.get().toString();
+					if (keyStoreType.equalsIgnoreCase("PKCS12" )) {
+						// get the passwd from console
+						PokeInConsole.PASSWD.get();
+					} else {
+						System.setProperty("javax.net.ssl.keyStorePassword", "");
+					}
+				}
 			} else {
 				if ((encryptedPasswd.isEmpty()) && (!(passwdContainer.isEmpty()))) {
 					// System.out.println("ILoadProperties empty encrypted passwd NOT found");
