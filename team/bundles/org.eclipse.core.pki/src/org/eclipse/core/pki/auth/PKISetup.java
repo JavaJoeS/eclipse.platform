@@ -206,7 +206,7 @@ public class PKISetup implements BundleActivator, IStartup {
 							LogUtil.logError("Initialization Error", e); //$NON-NLS-1$
 						}
 					} else {
-						LogUtil.logError("Valid KeyStore and Truststore not found.", null); //$NON-NLS-1$
+						LogUtil.logInfo("Valid KeyStore and Truststore not found."); //$NON-NLS-1$
 					}
 
 				}
