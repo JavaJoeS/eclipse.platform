@@ -1,13 +1,10 @@
 package org.eclipse.core.tests.pki.auth;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Test;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+//import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.ArgumentMatchers.isA;
-import static org.mockito.ArgumentMatchers.anyInt;
 
 import org.eclipse.core.pki.auth.ContextObservable;
 

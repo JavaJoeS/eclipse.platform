@@ -1,44 +1,15 @@
 package org.eclipse.core.tests.pki.auth;
 
 
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
-import junit.framework.TestCase;
-
-//import static org.assertj.swing.edt.FailOnThreadViolationRepaintManager;
-//import static org.assertj.swing.fixture.JPanelFixture;
-//import static org.assertj.swing.testing.AssertJSwingTestCaseTemplate;
-
-import org.mockito.junit.MockitoJUnitRunner;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.mockito.ArgumentMatcher;
-import org.mockito.ArgumentMatchers;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.doNothing;
-import static org.mockito.ArgumentMatchers.isA;
-import static org.mockito.ArgumentMatchers.anyInt;
-import org.mockito.MockedStatic;
-
-//import org.mockito.MockedStatic.staticMethod;
-//import org.powermock.modules.junit4.PowerMockRunner;
 
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.osgi.framework.BundleContext;
 
 import org.eclipse.core.pki.auth.PKIState;
 
@@ -62,7 +33,7 @@ public class PKIStateTest {
 	
 	@Before
 	public void Initialize() throws Exception {
-		MockitoAnnotations.initMocks(this);
+		//MockitoAnnotations.initMocks(this);
 		pkiStateMock = mock(PKIState.class);
 	}
 	@Test

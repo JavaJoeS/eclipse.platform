@@ -18,7 +18,7 @@ import java.util.concurrent.Flow.Subscription;
 
 import org.eclipse.core.pki.pkiselection.SecurityOpRequest;
 
-public class PKITestSubscriber implements Subscriber {
+public class PKITestSubscriber<T> implements Subscriber<T> {
 	private Subscription subscription;
 	private String name;
 	//private SSLContext sslContext;
@@ -37,9 +37,12 @@ public class PKITestSubscriber implements Subscriber {
 		// TODO Auto-generated method stub
 		this.subscription = subscription;
 	}
-
 	public void onNext(Object item) {
 		// TODO Auto-generated method stub
+		if ( subscription == null) {
+			SecurityOpRequest.INSTANCE.setConnected(false);
+			subscription.cancel();
+		}
 		SecurityOpRequest.INSTANCE.setConnected(true);
 	}
 

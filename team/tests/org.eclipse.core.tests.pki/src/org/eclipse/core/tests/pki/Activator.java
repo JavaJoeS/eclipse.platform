@@ -14,11 +14,8 @@
 package org.eclipse.core.tests.pki;
 
 
-import org.eclipse.core.runtime.Plugin;
-
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.ServiceRegistration;
 /**
  * The activator class controls the plug-in life cycle
  */
