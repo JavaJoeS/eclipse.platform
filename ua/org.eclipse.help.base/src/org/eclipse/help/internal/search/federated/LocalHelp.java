@@ -37,7 +37,9 @@ public class LocalHelp implements ISearchEngine2 {
 	public void run(String query, ISearchScope scope,
 			final ISearchEngineResultCollector collector,
 			IProgressMonitor monitor) throws CoreException {
+		String originalQuery = query;
 
+		// Pre search
 		AbstractSearchProcessor processors[] = SearchManager.getSearchProcessors();
 		altList = new ArrayList<>();
 		for (AbstractSearchProcessor processor : processors) {
@@ -56,28 +58,30 @@ public class LocalHelp implements ISearchEngine2 {
 		}
 		altList.sort(null);
 
-
+		// Search
 		SearchQuery searchQuery = new SearchQuery();
 		searchQuery.setSearchWord(query);
 		WorkingSet[] workingSets = null;
 		LocalHelpScope localScope = (LocalHelpScope) scope;
 		if (localScope.getWorkingSet() != null)
 			workingSets = new WorkingSet[] { localScope.getWorkingSet() };
-		SearchResults localResults = new SearchResults(workingSets, MAX_HITS,
-				Platform.getNL());
+		SearchResults localResults = new SearchResults(workingSets, MAX_HITS, Platform.getNL());
 		// If the indexer has been started and is currently running,
 		// wait for it to finish.
 		try {
 			Job.getJobManager().join(IndexerJob.FAMILY, monitor);
 		} catch (InterruptedException e) {
 		}
-		BaseHelpSystem.getSearchManager().search(searchQuery, localResults,
-				monitor);
+		if (!"".equals(query)) { //$NON-NLS-1$
+			BaseHelpSystem.getSearchManager().search(searchQuery, localResults, monitor);
+		}
 
+		// Post search
 		ISearchResult results[] = SearchManager.convertHitsToResults(localResults.getSearchHits());
 		boolean reset = false;
 		for (AbstractSearchProcessor processor : processors) {
-			ISearchResult tmp[] = processor.postSearch(query, results);
+			ISearchResult tmp[] = processor.postSearch(query, originalQuery, results, searchQuery.getLocale(),
+					localResults.getScopes());
 			if (tmp!=null)
 			{
 				reset = true;
@@ -152,7 +156,7 @@ public class LocalHelp implements ISearchEngine2 {
 		}
 		catch (Throwable t) {
 			ILog.of(getClass())
-					.error("Error occured in search participant trying to open document with id: " + id //$NON-NLS-1$
+					.error("Error occurred in search participant trying to open document with id: " + id //$NON-NLS-1$
 							+ ", participant: " + participant.getClass().getName(), t); //$NON-NLS-1$
 			return false;
 		}
